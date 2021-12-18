@@ -36,7 +36,7 @@ class Bomb(pygame.sprite.Sprite):
     image = load_image("bomb.png")
     image_boom = load_image("boom.png")
 
-    def __init__(self, x, y, *group):
+    def __init__(self, *group):
         super().__init__(*group)
         self.image = Bomb.image
         self.rect = self.image.get_rect()
