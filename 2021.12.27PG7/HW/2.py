@@ -81,9 +81,28 @@ class Player(pygame.sprite.Sprite):
         self.pos = (pos_x, pos_y)
 
     def move(self, x, y):
+        camera.dx -= tile_width * (x - self.pos[0])
+        camera.dy -= tile_height * (y - self.pos[1])
         self.pos = (x, y)
-        self.rect = self.image.get_rect().move(
-            tile_width * x + 15, tile_height * y + 5)
+        for sprite in tiles_group:
+            camera.apply(sprite)
+
+
+class Camera:
+    # зададим начальный сдвиг камеры
+    def __init__(self):
+        self.dx = 0
+        self.dy = 0
+
+    # сдвинуть объект obj на смещение камеры
+    def apply(self, obj):
+        obj.rect.x += self.dx
+        obj.rect.y += self.dy
+
+    # позиционировать камеру на объекте target
+    def update(self, target):
+        self.dx = 0
+        self.dy = 0
 
 
 def generate_level(level):
@@ -140,6 +159,7 @@ if __name__ == '__main__':
     tiles_group = pygame.sprite.Group()
 
     start_screen()
+    camera = Camera()
     level_map = load_level('map.txt')
     player, level_x, level_y = generate_level(level_map)
 
@@ -157,6 +177,7 @@ if __name__ == '__main__':
                     move(player, "left")
                 elif event.key == pygame.K_d:
                     move(player, "right")
+        camera.update(player)
         tiles_group.draw(screen)
         player_group.draw(screen)
         pygame.display.flip()
