@@ -264,9 +264,26 @@ class Ui_MainWindow(object):
 
 
 class Example(QtWidgets.QMainWindow, Ui_MainWindow):
+
+    comma = False
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.btn_0.clicked.connect(self.add_number)
+        self.btn_1.clicked.connect(self.add_number)
+        self.btn_2.clicked.connect(self.add_number)
+        self.btn_3.clicked.connect(self.add_number)
+        self.btn_4.clicked.connect(self.add_number)
+        self.btn_5.clicked.connect(self.add_number)
+        self.btn_6.clicked.connect(self.add_number)
+        self.btn_7.clicked.connect(self.add_number)
+        self.btn_8.clicked.connect(self.add_number)
+        self.btn_9.clicked.connect(self.add_number)
+
+    def add_number(self):
+        if self.comma:
+        self.le_entry.setText(self.le_entry.text() + self.sender().text())
 
 
 sys._excepthook = sys.excepthook

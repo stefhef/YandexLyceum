@@ -1,5 +1,4 @@
 import pygame
-import random
 import os
 import sys
 
@@ -11,7 +10,7 @@ def load_image(name, colorkey=-1):
         sys.exit()
     image = pygame.image.load(fullname)
     # if colorkey is not None:
-        # image = image.convert()
+    # image = image.convert()
     if colorkey == -1:
         colorkey = image.get_at((0, 0))
         image.set_colorkey(colorkey)
