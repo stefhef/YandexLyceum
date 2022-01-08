@@ -247,7 +247,8 @@ class Ui_MainWindow(object):
         self.btn_1.setText(_translate("MainWindow", "0"))
         self.btn_1.setShortcut(_translate("MainWindow", "0"))
         self.btn_sub.setText(_translate("MainWindow", "="))
-        self.btn_sub.setShortcut(_translate("MainWindow", "=, Enter"))
+        self.btn_sub.setShortcut(_translate("MainWindow", "="))
+        self.btn_sub.setShortcut(_translate("MainWindow", "Enter"))
         self.btn_4.setText(_translate("MainWindow", "4"))
         self.btn_4.setShortcut(_translate("MainWindow", "4"))
         self.btn_6.setText(_translate("MainWindow", "6"))
@@ -265,6 +266,7 @@ class Ui_MainWindow(object):
 
 class Example(QtWidgets.QMainWindow, Ui_MainWindow):
 
+    flag = False
     comma = False
 
     def __init__(self):
@@ -280,10 +282,59 @@ class Example(QtWidgets.QMainWindow, Ui_MainWindow):
         self.btn_7.clicked.connect(self.add_number)
         self.btn_8.clicked.connect(self.add_number)
         self.btn_9.clicked.connect(self.add_number)
+        self.btn_point.clicked.connect(self.add_number)
+
+        self.btn_neg.clicked.connect(self.change_sign)
+
+        self.btn_ce.clicked.connect(self.all_clear)
+        self.btn_clear.clicked.connect(self.clear)
+
+        self.btn_plus.clicked.connect(self.action)
+        self.btn_div.clicked.connect(self.action)
+        self.btn_mul.clicked.connect(self.action)
+        self.btn_mul_2.clicked.connect(self.action)
+
+        self.btn_sub.clicked.connect(self.equal)
 
     def add_number(self):
-        if self.comma:
+        text = self.le_entry.text()
+        s_text = self.sender().text()
+        if self.flag:
+            self.le_entry.setText('')
+            self.flag = False
+        if self.comma and s_text == '.':
+            return
+        elif s_text == '.':
+            self.comma = True
+
+        if len(text) == 1 and text == '0' and s_text != '.':
+            self.le_entry.setText('')
         self.le_entry.setText(self.le_entry.text() + self.sender().text())
+
+    def clear(self):
+        self.le_entry.setText('0')
+
+    def all_clear(self):
+        self.lbl_temp.setText('')
+        self.clear()
+
+    def change_sign(self):
+        tx = self.le_entry.text()
+        tx = tx[1:] if tx.startswith('-') else '-' + tx
+        self.le_entry.setText(str(tx))
+
+    def action(self):
+        zn = self.sender().text()
+        self.lbl_temp.setText(self.le_entry.text() + zn)
+        self.flag = True
+
+    def equal(self):
+        try:
+            self.le_entry.setText(str(eval(self.lbl_temp.text() + self.le_entry.text())))
+            self.lbl_temp.setText('')
+        except ZeroDivisionError:
+            self.all_clear()
+            self.le_entry.setText('Error')
 
 
 sys._excepthook = sys.excepthook

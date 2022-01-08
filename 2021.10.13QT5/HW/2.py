@@ -44,33 +44,36 @@ class Example(QtWidgets.QMainWindow, Ui_MainWindow):
         self.initUi()
 
     def initUi(self):
-        self.pixmap = QtGui.QPixmap(451, 451)
-        self.pixmap.fill(QtCore.Qt.transparent)
-        self.draw = True
-        self.verticalSlider.setMinimum(1)
-        self.verticalSlider.setMaximum(600)
-        self.verticalSlider.setValue(450)
-        self.verticalSlider.valueChanged.connect(self.change_size)
+        self.pixmap = QtGui.QPixmap(600, 600)
 
-    def change_size(self):
-        value = self.verticalSlider.value()
-        self.pixmap = self.pixmap.scaled(value, value)
-        self.label.setPixmap(self.pixmap)
+        self.verticalSlider.setMinimum(1)
+        self.verticalSlider.setMaximum(700)
+        self.verticalSlider.setValue(450)
+        self.verticalSlider.valueChanged.connect(self.update)
+        self.pixmap.fill(QtCore.Qt.transparent)
 
     def paintEvent(self, event):
-        if self.draw:
-            qp = QPainter(self.pixmap)
-            self.draw_smile(qp)
-            qp.end()
-            self.label.setPixmap(self.pixmap)
-            self.draw = False
-
-    def draw_smile(self, qp):
+        qp = QPainter(self)
+        val = self.verticalSlider.value()
         qp.setPen(QColor(255, 0, 0))
-        qp.drawEllipse(1, 1, 450, 450)
-        qp.drawEllipse(125, 151, 75, 75)
-        qp.drawEllipse(275, 151, 75, 75)
-        qp.drawArc(125, 300, 225, 50, 0, -180*16)
+        qp.drawEllipse(1, 1, val, val)
+        qp.drawEllipse(round(0.3125 * val),
+                       round(0.3 * val),
+                       round(0.17 * val),
+                       round(0.17 * val))
+
+        qp.drawEllipse(round(0.61 * val),
+                       round(0.3 * val),
+                       round(0.17 * val),
+                       round(0.17 * val))
+
+        qp.drawArc(round(0.3125 * val),
+                   round(0.67 * val),
+                   round(0.5 * val),
+                   round(0.1 * val),
+                   0, -180 * 16)
+        qp.end()
+        self.label.setPixmap(self.pixmap)
 
 
 if __name__ == '__main__':

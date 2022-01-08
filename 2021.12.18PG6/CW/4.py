@@ -40,8 +40,6 @@ class Landing(pygame.sprite.Sprite):
         self.image = Landing.image
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        # вычисляем маску для эффективного сравнения
-        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = pos[0]
         self.rect.y = pos[1]
 
