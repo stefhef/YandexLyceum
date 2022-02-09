@@ -3,14 +3,15 @@ from io import BytesIO
 import requests
 from PIL import Image
 
-API_KEY = "40d1649f-0493-4b70-98ba-98533de7710b"
+API_KEY_GEOCODER = "40d1649f-0493-4b70-98ba-98533de7710b"
+API_KEY_SEARCH = "dda3ddba-c9ea-4ead-9010-f43fbc15c6e3"
 
 
 def geocode(address):
     geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
 
     geocoder_params = {
-        "apikey": API_KEY,
+        "apikey": API_KEY_GEOCODER,
         "geocode": address,
         "format": "json"}
 
@@ -40,12 +41,16 @@ def get_ll_spn(address):
     return ll, spn
 
 
-def get_nearst_object(ll, spn, map_type="map", add_params=None):
+def get_nearst_object():
+    pass
+
+
+def show_map(ll, spn, map_type="map", add_params=None):
     map_params = {
         "ll": ll,
         "spn": spn,
         "l": map_type,
-        "pt":  f"{ll},pm2rdm"
+        "pt": f"{ll},pm2rdm"
     }
 
     if isinstance(add_params, dict):
@@ -53,9 +58,29 @@ def get_nearst_object(ll, spn, map_type="map", add_params=None):
 
     map_api_server = "http://static-maps.yandex.ru/1.x/"
     response = requests.get(map_api_server, params=map_params)
-    return response
-
-
-def show_map(response):
     Image.open(BytesIO(
         response.content)).show()
+
+
+def find_organization(ll, spn, request, lang="ru_RU"):
+    search_api_server = "https://search-maps.yandex.ru/v1/"
+    search_param = {
+        "apikey": API_KEY_SEARCH,
+        "text": request,
+        "ll": ll,
+        "spn": spn,
+        "lang": lang
+    }
+    response = requests.get(search_api_server, search_param)
+    if not response:
+        raise f"""Ошибка выполнения запроса: {response.url}
+    HTTP статус: {response.status_code}({response.reason})"""
+    response = response.json()
+    organization = response["features"]
+    return organization
+
+
+def find_nearst_organization(ll, spn, request, lang="ru_RU"):
+    organization = find_organization(ll, spn, request, lang=lang)
+    if len(organization):
+        return organization[0]
