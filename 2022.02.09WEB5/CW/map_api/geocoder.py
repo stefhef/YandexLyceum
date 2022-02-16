@@ -58,17 +58,15 @@ def show_map(ll, spn, map_type="map", add_params=None):
 
     map_api_server = "http://static-maps.yandex.ru/1.x/"
     response = requests.get(map_api_server, params=map_params)
-    Image.open(BytesIO(
-        response.content)).show()
+    Image.open(BytesIO(response.content)).show()
 
 
-def find_organization(ll, spn, request, lang="ru_RU"):
+def find_organization(ll, request, lang="ru_RU"):
     search_api_server = "https://search-maps.yandex.ru/v1/"
     search_param = {
         "apikey": API_KEY_SEARCH,
         "text": request,
         "ll": ll,
-        "spn": spn,
         "lang": lang
     }
     response = requests.get(search_api_server, search_param)
@@ -80,7 +78,7 @@ def find_organization(ll, spn, request, lang="ru_RU"):
     return organization
 
 
-def find_nearst_organization(ll, spn, request, lang="ru_RU"):
-    organization = find_organization(ll, spn, request, lang=lang)
+def find_nearst_organization(ll, request, lang="ru_RU"):
+    organization = find_organization(ll, request, lang=lang)
     if len(organization):
         return organization[0]
