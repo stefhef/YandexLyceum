@@ -97,8 +97,8 @@ def form_sample():
                             <title>Пример формы</title>
                           </head>
                           <body>
-                            <h1 align="centre">Анкета претендента</h1>
-                            <h2 align="midle">на участие в миссии</h2>
+                            <h1 style="text-align: center">Анкета претендента</h1>
+                            <h2 style="text-align: center">на участие в миссии</h2>
                             <div>
                                 <form class="login_form" method="post">
                                     <input type="text" class="form-control" id="surname" aria-describedby="surnameHelp" placeholder="Введите фамилию" name="surname">
@@ -173,7 +173,7 @@ def form_sample():
                                         <input type="checkbox" class="form-check-input" id="acceptRules" name="accept">
                                         <label class="form-check-label" for="acceptRules">Готовы остаться на Марсе?</label>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Записаться</button>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
                                 </form>
                             </div>
                           </body>
