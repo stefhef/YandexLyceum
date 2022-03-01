@@ -1,11 +1,18 @@
-import sys
+import schedule
+import datetime
+from typing import Union
 
 
-if len(sys.argv) == 1:
-    print('NO PARAMS')
-else:
-    try:
-        numbers = list(map(int, sys.argv[1:]))
-        print(sum(numbers[::2]) - sum(numbers[1::2]))
-    except BaseException as e:
-        print(e.__class__.__name__)
+def q(word: str, time_n: Union[list[int, int], tuple[int, int]]):
+    d = datetime.datetime.now()
+    if time_n[0] <= d.hour <= time_n[1]:
+        return
+    i = d.hour % 12 if d.hour % 12 else 12
+    print(word * i)
+
+
+time_n = tuple(map(int, input().split('-')))
+schedule.every().hour.at(":00").do(q(input(), time_n))
+
+while True:
+    schedule.run_pending()

@@ -1,3 +1,4 @@
-import datetime
+import zipfile
 
-print(datetime.date.today().year)
+with zipfile.ZipFile('2022-02-22_22+20+29.zip', "w") as z:
+    pass

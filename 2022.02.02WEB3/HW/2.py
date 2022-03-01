@@ -1,12 +1,14 @@
 import sys
 
-if len(sys.argv) == 3:
-    try:
-        a = int(sys.argv[1])
-        b = int(sys.argv[2])
-        print(a + b)
-    except ValueError:
-        print(0)
-else:
-    print(0)
+d = {}
+sort = False
+for arg in sys.argv[1:]:
+    if '=' in arg:
+        arg = arg.split('=')
+        d[arg[0]] = arg[1]
+    else:
+        sort = True
 
+d = sorted(d.items()) if sort else d.items()
+for key, value in d:
+    print(f"Key: {key} Value: {value}")
