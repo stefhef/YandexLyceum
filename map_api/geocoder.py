@@ -3,17 +3,25 @@ from io import BytesIO
 import requests
 from PIL import Image
 
-API_KEY_GEOCODER = "40d1649f-0493-4b70-98ba-98533de7710b"
-API_KEY_SEARCH = "dda3ddba-c9ea-4ead-9010-f43fbc15c6e3"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY_GEOCODER = os.environ.get('API_KEY_GEOCODER')
+API_KEY_SEARCH = os.environ.get('API_KEY_SEARCH')
 
 
-def geocode(address):
+def geocode(address, add_params: dict = None):
     geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
 
     geocoder_params = {
         "apikey": API_KEY_GEOCODER,
         "geocode": address,
         "format": "json"}
+
+    if isinstance(add_params, dict):
+        geocoder_params.update(add_params)
 
     response = requests.get(geocoder_api_server, params=geocoder_params)
 
