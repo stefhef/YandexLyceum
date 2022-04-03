@@ -1,0 +1,64 @@
+* {
+    font-size: 30px;
+}
+
+
+div {
+    alignment: center;
+}
+
+
+nav {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+table {
+    border-collapse: collapse;
+    line-height: 1.1;
+
+    border: 1px solid black;
+    width: 100%;
+}
+
+caption {
+    text-align: center;
+    caption-side: top;
+}
+
+#Activites {
+    color: #ff8eff;
+}
+
+.Activites {
+    background-color: #ff8eff;
+}
+
+#ages {
+    color: aqua;
+}
+
+.ages {
+    background-color: aqua;
+}
+
+#cities {
+    color: deeppink;
+}
+
+.cities {
+    background-color: deeppink
+}
+
+tr {
+    border: 1px solid black;
+    width: 100%;
+    color: black;
+}
+
+td {
+    border: 1px solid black;
+    width: 50%;
+    color: black;
+
+}

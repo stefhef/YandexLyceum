@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="static/css/form.css">
+    <h1 align="center">Загрузка фотографии</h1>
+    <h2 align="center">для участия в миссии</h2>
+
+    <div class="form">
+        <div class="form-file">
+            <p>Приложите фотографию</p>
+            <form action="" method=post enctype=multipart/form-data>
+                <input type="file" class="form-file-input" id="customFile">
+
+                <input type=submit value=Отправить class="sub">
+            </form>
+
+            <div>
+                <img src={{ image }} class="rounded" alt="">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

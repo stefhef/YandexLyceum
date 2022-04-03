@@ -1,6 +1,9 @@
 from flask import Flask, url_for, request, render_template
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static\\img'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 data = {'Марс': ['Эта планета близка к земли', 'Есть вода и ресурсы', 'Небольшое МП', 'Она просто красивая, красная',
                  "Хочу туда"],
         'Земля': ['Мы тут живём', 'И ещё много все', 'Очень много', 'Воды', 'И тчо-то ещё'],
@@ -29,6 +32,18 @@ def choice(planet_name):
 @app.route('/results/<nickname>/<int:level>/<float:rating>')
 def results(nickname, level: int, rating: float):
     return render_template('result.html', nickname=nickname, level=level, rating=rating)
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def load_photo():
+    if request.method == 'GET':
+        return render_template('form.html', image=url_for('static', filename='img/standart.png'))
+    elif request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        file.save('static\\img', filename)
+        print(filename)
+        return render_template('form.html', image=url_for('static/img', filename=file.filename))
 
 
 if __name__ == '__main__':

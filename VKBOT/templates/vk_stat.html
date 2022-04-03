@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href={{ url_for('static', filename='css/vk_stat.css') }}>
+
+<div >
+    <table class="Activites">
+        <caption id="Activites">Activites</caption>
+        <tr>
+            <td>likes</td>
+            <td>{{ out.get('likes') }}</td>
+        </tr>
+        <tr>
+            <td>comments</td>
+            <td>{{ out.get('comments') }}</td>
+        </tr>
+        <tr>
+            <td>subscribed</td>
+            <td>{{ out.get('subscribed') }}</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table class="ages">
+        <caption id="ages">Ages</caption>
+        {% for key, value in out['ages'].items() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div>
+    <table class="cities">
+        <caption id="cities">Cities</caption>
+        {% for citie in out['cities'] %}
+        <tr>
+            <td>{{ citie }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
