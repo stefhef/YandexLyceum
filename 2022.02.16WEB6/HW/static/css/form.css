@@ -1,9 +1,13 @@
-.form {
+#form {
     background-color: #ffc455;
     border-radius: 10px;
-    width: 60%;
+    width: 25vw;
     padding: 20px;
-    alignment: center;
+}
+
+* {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .sub {

@@ -1,4 +1,6 @@
-from flask import Flask, url_for, request, render_template
+import os.path
+
+from flask import Flask, url_for, request, render_template, flash
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -39,11 +41,16 @@ def load_photo():
     if request.method == 'GET':
         return render_template('form.html', image=url_for('static', filename='img/standart.png'))
     elif request.method == 'POST':
+        if 'file' not in request.files:
+            # После перенаправления на страницу загрузки
+            # покажем сообщение пользователю
+            return 'Не могу прочитать файл'
         file = request.files['file']
         filename = secure_filename(file.filename)
-        file.save('static\\img', filename)
+        pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(f'2022.02.16WEB6\\HW\\static\\img\\standart.png')
         print(filename)
-        return render_template('form.html', image=url_for('static/img', filename=file.filename))
+        return render_template('form.html', image=url_for('static', filename='img/standart.png'))
 
 
 if __name__ == '__main__':
