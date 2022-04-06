@@ -36,6 +36,17 @@ def results(nickname, level: int, rating: float):
     return render_template('result.html', nickname=nickname, level=level, rating=rating)
 
 
+@app.route('/carousel')
+def carousel():
+    print(os.listdir('2022.02.16WEB6/HW/static/img/carousel'))
+    images = []
+    for path in os.listdir('2022.02.16WEB6/HW/static/img/carousel'):
+        if path != 'image_active.png':
+            images.append(url_for('static', filename=f'img/carousel/{path}'))
+
+    return render_template('carousel.html', image_active=url_for('static', filename='img/carousel/image_active.png'), images=images)
+
+
 @app.route('/load_photo', methods=['POST', 'GET'])
 def load_photo():
     if request.method == 'GET':
