@@ -38,9 +38,9 @@ def results(nickname, level: int, rating: float):
 
 @app.route('/carousel')
 def carousel():
-    print(os.listdir('2022.02.16WEB6/HW/static/img/carousel'))
+    print(os.listdir('static/img/carousel'))
     images = []
-    for path in os.listdir('2022.02.16WEB6/HW/static/img/carousel'):
+    for path in os.listdir('static/img/carousel'):
         if path != 'image_active.png':
             images.append(url_for('static', filename=f'img/carousel/{path}'))
 
@@ -57,10 +57,7 @@ def load_photo():
             # покажем сообщение пользователю
             return 'Не могу прочитать файл'
         file = request.files['file']
-        filename = secure_filename(file.filename)
-        pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(f'2022.02.16WEB6\\HW\\static\\img\\standart.png')
-        print(filename)
+        file.save(f'static\\img\\standart.png')
         return render_template('form.html', image=url_for('static', filename='img/standart.png'))
 
 
