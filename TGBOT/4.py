@@ -13,13 +13,14 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG
 )
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__) 
 
 TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 keyboard_reply = [['/dice', '/timer']]
 keyboard_dice = [[]]
-start_markup = ReplyKeyboardMarkup(keyboard_reply, one_time_keyboard=False, resize_keyboard=True)
+keyboard_start = [['/start']]
+start_markup = ReplyKeyboardMarkup(keyboard_start, one_time_keyboard=True, resize_keyboard=True)
 
 
 def start(update, context):

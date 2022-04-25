@@ -1,2 +1,2 @@
-with open('static\\img\\t.png', 'w') as fl:
-    fl.write('1')
+for number, el in enumerate('abcdef'):
+    print(number, el)

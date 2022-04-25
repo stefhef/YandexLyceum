@@ -5,19 +5,11 @@ from vk_api.utils import get_random_id
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 
 def main():
-    users = []
-    weeks = {1: 'Вторник',
-             2: 'Среда',
-             3: 'Четверг',
-             4: 'Пятница',
-             5: 'Суббота',
-             6: 'Воскресенье',
-             0: 'Понедельник'}
+    session_storage = {}
 
     TOKEN = os.environ.get('TOKEN_VK')
 
