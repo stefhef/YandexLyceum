@@ -38,6 +38,10 @@ def test():
         print('NO')
         return
 
+    if not is_palindrome(' '):
+        print('NO')
+        return 
+
     print('YES')
 
 

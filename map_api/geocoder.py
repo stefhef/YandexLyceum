@@ -1,8 +1,6 @@
 from io import BytesIO
-
 import requests
 from PIL import Image
-
 import os
 from dotenv import load_dotenv
 
@@ -47,10 +45,6 @@ def get_ll_spn(address):
     dx, dy = str(abs(float(l) - float(r)) / 2), str(abs(float(b) - float(t)) / 2)
     spn = ','.join((dx, dy))
     return ll, spn
-
-
-def get_nearst_object():
-    pass
 
 
 def show_map(ll, spn, map_type="map", add_params=None):
